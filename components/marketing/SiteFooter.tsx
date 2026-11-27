@@ -4,8 +4,8 @@ import Logo from "@/components/brand/Logo";
 
 const SOCIAL = [
     { href: 'https://evanquinne.com', label: 'Evan & Quinne — evanquinne.com', icon: Globe },
-    { href: 'https://www.instagram.com/wu__yufan/', label: 'Instagram — @wu__yufan', icon: Instagram },
-    { href: 'https://www.threads.net/@wu__yufan', label: 'Threads — @wu__yufan', icon: ThreadsIcon },
+    { href: 'https://www.instagram.com/wu_yufan/', label: 'Instagram — @wu_yufan', icon: Instagram },
+    { href: 'https://www.threads.net/@wu_yufan', label: 'Threads — @wu_yufan', icon: ThreadsIcon },
 ] as const;
 
 function ThreadsIcon({ className }: { className?: string }) {

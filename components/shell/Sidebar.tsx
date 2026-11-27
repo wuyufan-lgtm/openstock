@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { BookOpen, Code2, Heart, Info, LayoutDashboard, LifeBuoy, LogOut, Search, Star } from "lucide-react";
+import { BookOpen, Code2, Heart, LayoutDashboard, LifeBuoy, LogOut, Search, Star } from "lucide-react";
 import { openSearch } from "@/components/SearchCommand";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Logo from "@/components/brand/Logo";
@@ -18,7 +18,6 @@ type SidebarProps = {
 const RESOURCES = [
     { href: '/help', label: 'help', icon: LifeBuoy },
     { href: '/api-docs', label: 'apiDocs', icon: Code2 },
-    { href: '/about', label: 'about', icon: Info },
     { href: '/terms', label: 'terms', icon: BookOpen },
 ] as const;
 

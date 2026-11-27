@@ -2,7 +2,6 @@
 // Prefix checks are whole segments: `/s` must not unlock `/stocks` or `/sponsor`.
 export const PUBLIC_EXACT_PATHS = [
     '/',
-    '/about',
     '/help',
     '/terms',
     '/api-docs',
