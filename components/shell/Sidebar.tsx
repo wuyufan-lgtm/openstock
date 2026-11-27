@@ -1,7 +1,6 @@
 'use client';
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { BookOpen, Code2, Heart, Info, LayoutDashboard, LifeBuoy, LogOut, Search, Star } from "lucide-react";
@@ -9,8 +8,6 @@ import { openSearch } from "@/components/SearchCommand";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { signOut } from "@/lib/actions/auth.actions";
 import { cn } from "@/lib/utils";
-import { SIDEBAR_SPONSOR_SLOTS, sidebarSponsors } from "@/lib/sponsors";
-import SponsorLink from "@/components/sponsors/SponsorLink";
 
 type SidebarProps = {
     user: User;
@@ -28,8 +25,6 @@ const Sidebar = ({ user, watchlist }: SidebarProps) => {
     const t = useTranslations('Sidebar');
     const pathname = usePathname();
     const router = useRouter();
-    const partners = sidebarSponsors();
-    const openSlots = SIDEBAR_SPONSOR_SLOTS - partners.length;
 
     const handleSignOut = async () => {
         await signOut();
@@ -38,8 +33,11 @@ const Sidebar = ({ user, watchlist }: SidebarProps) => {
 
     return (
         <aside className="sidebar">
-            <Link href="/dashboard" className="px-2 pt-1 pb-2" aria-label={t('homeAria')}>
-                <Image src="/assets/images/logo.png" alt="OpenStock" width={150} height={38} priority />
+            <Link href="/dashboard" className="flex items-center gap-2.5 px-2 pt-1 pb-2" aria-label={t('homeAria')}>
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand text-[17px] font-bold leading-none text-on-brand" aria-hidden>
+                    E
+                </span>
+                <span className="text-[19px] font-bold tracking-tight text-foreground">Open</span>
             </Link>
 
             <button type="button" onClick={openSearch} className="side-cta">
@@ -94,24 +92,6 @@ const Sidebar = ({ user, watchlist }: SidebarProps) => {
                     <Heart /> {t('support')}
                 </button>
                 <LanguageSwitcher />
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-                {partners.map((sponsor) => (
-                    <SponsorLink key={sponsor.name} sponsor={sponsor} title={sponsor.name} className="flex h-11 items-center gap-2.5 rounded-[11px] px-3 shadow-[inset_0_0_0_1px_var(--line)] transition-colors hover:bg-white/5">
-                        {sponsor.logo && <img src={sponsor.logo} alt={sponsor.iconOnly ? '' : sponsor.name} className="h-5 w-auto max-w-[120px]" />}
-                        {(!sponsor.logo || sponsor.iconOnly) && <span className="truncate text-[13px] font-semibold text-muted-foreground">{sponsor.name}</span>}
-                        <span className="kicker ms-auto">{t('sponsor')}</span>
-                    </SponsorLink>
-                ))}
-                {openSlots > 0 && (
-                    <Link href="/sponsor#tiers" className="group flex flex-col gap-0.5 rounded-[11px] px-3 py-2.5 shadow-[inset_0_0_0_1px_var(--line)] transition-colors hover:bg-white/5">
-                        <span className="kicker flex items-center gap-1.5 text-brand-ink">
-                            <span className="live-dot" /> {openSlots === SIDEBAR_SPONSOR_SLOTS ? t('sponsorSlotsOpen') : t('sponsorSlotsLeft', { count: openSlots })}
-                        </span>
-                        <span className="text-[12.5px] text-faint transition-colors group-hover:text-muted-foreground">{t('sponsorPitch')}</span>
-                    </Link>
-                )}
             </div>
 
             <div className="flex items-center gap-2.5 border-t border-line pt-3 px-1">
