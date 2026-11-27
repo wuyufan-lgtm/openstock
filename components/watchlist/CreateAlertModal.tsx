@@ -43,7 +43,7 @@ function Segmented<T extends string | number>({ label, value, options, onChange 
                     // One line at any width: a phone (320px) gets a slightly smaller size instead of a wrap
                     className={cn(
                         'min-h-9 whitespace-nowrap rounded-[9px] px-1 text-[12px] font-semibold transition-colors min-[400px]:text-[14px]',
-                        value === option.value ? 'bg-hover text-foreground shadow-[inset_0_1px_0_oklch(1_0_0/0.06)]' : 'text-faint hover:text-foreground',
+                        value === option.value ? 'bg-hover text-foreground shadow-[inset_0_1px_0_var(--edge-hi)]' : 'text-faint hover:text-foreground',
                     )}
                 >
                     {option.label}

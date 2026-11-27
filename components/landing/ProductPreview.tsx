@@ -15,7 +15,7 @@ const miniChart = (symbol: string) => ({
 // so marketing never shows a stale screenshot.
 export default function ProductPreview() {
     return (
-        <div className="overflow-hidden rounded-[18px] bg-side p-[3px] shadow-[0_0_0_1px_oklch(1_0_0/0.05),0_30px_80px_oklch(0_0_0/0.55)]">
+        <div className="overflow-hidden rounded-[18px] bg-side p-[3px] shadow-[var(--shadow-preview)]">
             <div className="flex items-end gap-1 px-3 pt-2" aria-hidden>
                 {[['Overview', true], ['AAPL', false], ['NVDA', false]].map(([label, active]) => (
                     <span

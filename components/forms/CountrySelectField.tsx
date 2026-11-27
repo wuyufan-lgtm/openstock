@@ -115,7 +115,7 @@ const CountrySelect = ({
                                 >
                                     <Check
                                         className={cn(
-                                            'me-2 h-4 w-4 text-teal-500',
+                                            'me-2 h-4 w-4 text-brand-ink',
                                             value === country.value ? 'opacity-100' : 'opacity-0'
                                         )}
                                     />

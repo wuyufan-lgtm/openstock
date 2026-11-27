@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { BookOpen, Code2, Heart, LayoutDashboard, LifeBuoy, LogOut, Search, Star } from "lucide-react";
 import { openSearch } from "@/components/SearchCommand";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 import Logo from "@/components/brand/Logo";
 import { signOut } from "@/lib/actions/auth.actions";
 import { cn } from "@/lib/utils";
@@ -92,7 +93,7 @@ const Sidebar = ({ user, watchlist }: SidebarProps) => {
             </div>
 
             <div className="flex items-center gap-2.5 border-t border-line pt-3 px-1">
-                <Link href="/profile" className={cn('-m-1 flex min-w-0 flex-1 items-center gap-2.5 rounded-[10px] p-1 transition-colors hover:bg-white/5', pathname === '/profile' && 'bg-white/5')}>
+                <Link href="/profile" className={cn('-m-1 flex min-w-0 flex-1 items-center gap-2.5 rounded-[10px] p-1 transition-colors hover:bg-tint', pathname === '/profile' && 'bg-tint-soft')}>
                     <span className="grid size-8 flex-none place-items-center rounded-full bg-brand-soft text-[13px] font-bold text-brand-ink">
                         {user.name?.[0]?.toUpperCase() ?? '?'}
                     </span>
@@ -101,6 +102,7 @@ const Sidebar = ({ user, watchlist }: SidebarProps) => {
                         <span dir="auto" className="block truncate text-[12px] text-faint rtl:text-right">{user.email}</span>
                     </span>
                 </Link>
+                <ThemeToggle />
                 <button type="button" onClick={handleSignOut} className="icon-btn" title={t('signOut')} aria-label={t('signOut')}>
                     <LogOut />
                 </button>

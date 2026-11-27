@@ -7,7 +7,7 @@ import SponsorLink from "@/components/sponsors/SponsorLink";
 import { cn } from "@/lib/utils";
 
 export const metadata = {
-    title: 'Sponsor OpenStock',
+    title: 'Sponsor Open',
     description: 'Back free, open-source market data. Monthly tiers, one-time gifts, or talk with us about a partnership.',
 };
 
@@ -156,7 +156,7 @@ export default async function SponsorPage() {
                         return (
                             <div
                                 key={tier.id}
-                                className={cn('hatch', tier.featured && 'shadow-[0_6px_18px_oklch(0_0_0/0.22)]')}
+                                className={cn('hatch', tier.featured && 'shadow-[var(--shadow-hatch)]')}
                                 style={{ outline: `1px solid ${tierBorder(tier.id)}` }}
                             >
                                 <div className="card flex h-full flex-col gap-4 p-5">

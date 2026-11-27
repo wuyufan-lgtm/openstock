@@ -27,7 +27,7 @@ export default function MarketSwitcher({ active, openIds }: { active: MarketId; 
                         className={cn(
                             'flex h-9 flex-none items-center gap-2 rounded-full px-3.5 text-[13.5px] font-semibold transition-[background-color,color,box-shadow] duration-150',
                             selected
-                                ? 'bg-brand-soft text-brand-ink shadow-[inset_0_0_0_1px_oklch(0.8_0.13_176/0.45)]'
+                                ? 'bg-brand-soft text-brand-ink shadow-[inset_0_0_0_1px_var(--brand-ring)]'
                                 : 'text-muted-foreground shadow-[inset_0_0_0_1px_var(--line)] hover:bg-hover hover:text-foreground',
                         )}
                     >

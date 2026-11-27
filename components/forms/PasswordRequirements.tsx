@@ -17,15 +17,15 @@ const PasswordRequirements = ({ password }: { password: string }) => {
                         {password.length === 0 ? (
                             <span className="size-3.5 rounded-full border border-gray-500" />
                         ) : passed ? (
-                            <Check className="size-3.5 text-green-500" />
+                            <Check className="size-3.5 text-up" />
                         ) : (
-                            <X className="size-3.5 text-red-500" />
+                            <X className="size-3.5 text-down" />
                         )}
                         <span
                             className={cn(
                                 'transition-colors',
                                 password.length === 0 && 'text-gray-500',
-                                passed ? 'text-green-500' : password.length > 0 && 'text-red-500',
+                                passed ? 'text-up' : password.length > 0 && 'text-down',
                             )}
                         >
                             {t(`rules.${rule.key}`)}

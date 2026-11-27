@@ -1,6 +1,7 @@
 'use client';
 
 import React, { memo, useState, useEffect } from 'react';
+import { useTheme } from '@/components/theme/ThemeProvider';
 import useTradingViewWidget from "@/hooks/useTradingViewWidget";
 import { cn } from "@/lib/utils";
 import { Maximize2, Minimize2 } from 'lucide-react';
@@ -21,6 +22,10 @@ const ENGLISH = { fullScreen: 'Full screen', exitFullScreen: 'Exit full screen',
 const TradingViewWidget = ({ scriptUrl, config, height = 600, className, allowExpand = false, labels = ENGLISH }: TradingViewWidgetProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
+    // The embeds are transparent, so their labels have to follow the page palette or they vanish.
+    // Every caller hardcodes colorTheme: 'dark' in its config; this override wins over it.
+    const { theme } = useTheme();
+
     useEffect(() => {
         if (!isExpanded) return;
         const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setIsExpanded(false);
@@ -32,7 +37,13 @@ const TradingViewWidget = ({ scriptUrl, config, height = 600, className, allowEx
         };
     }, [isExpanded]);
 
-    const containerRef = useTradingViewWidget(scriptUrl, { ...config, width: "100%", height: "100%", autosize: true });
+    const containerRef = useTradingViewWidget(scriptUrl, {
+        ...config,
+        colorTheme: theme === 'light' ? 'light' : 'dark',
+        width: "100%",
+        height: "100%",
+        autosize: true,
+    });
 
     return (
         <>

@@ -30,7 +30,7 @@ type Params = { ticker: string };
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
     const { ticker: raw } = await params;
     const ticker = findTicker(raw);
-    if (!ticker) return { title: 'Stock not found | OpenStock', robots: { index: false, follow: false } };
+    if (!ticker) return { title: 'Stock not found | Open', robots: { index: false, follow: false } };
 
     const title = `${ticker.name} (${ticker.symbol}) stock chart and SEC filings | OpenStock`;
     const description = tickerIntro(ticker);
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
         title,
         description,
         alternates: { canonical: url },
-        openGraph: { title, description, url, siteName: 'OpenStock', type: 'website' },
+        openGraph: { title, description, url, siteName: 'Open', type: 'website' },
         twitter: { card: 'summary', title, description },
         robots: { index: true, follow: true },
     };

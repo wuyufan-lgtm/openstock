@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SiteFooter from "@/components/marketing/SiteFooter";
 import Logo from "@/components/brand/Logo";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 
 const NAV = [
     { href: '/#inside', label: 'Product' },
@@ -30,6 +31,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
                         })}
                     </nav>
                     <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+                        <ThemeToggle className="size-9" />
                         <Link href="/sign-in" className="btn h-9 px-2 text-muted-foreground hover:text-foreground sm:px-3">Sign in</Link>
                         <Link href="/sign-up" className="btn btn-primary h-9 px-3 sm:px-[14px]">Get started</Link>
                     </div>

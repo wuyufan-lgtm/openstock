@@ -121,7 +121,7 @@ function LocalClock() {
     const zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
     const place = (zone.split('/')[1] ?? zone).replace(/_/g, ' ');
     return (
-        <div className="pointer-events-none absolute bottom-3 left-4 text-foreground drop-shadow-[0_2px_10px_oklch(0_0_0/0.7)]">
+        <div className="pointer-events-none absolute bottom-3 left-4 text-foreground [text-shadow:var(--shadow-text)]">
             <p className="mono text-[30px] font-bold leading-none tracking-[-0.03em]">{now ? formatTime(now, zone, true) : '--:--:--'}</p>
             <p className="mt-1.5 text-[12px] font-semibold">{place}</p>
             <p className="text-[11px] text-muted-foreground">
@@ -194,13 +194,13 @@ export default function WorldClock() {
                 </div>
                 <div className="relative aspect-[2/1] w-full overflow-hidden bg-canvas shadow-[inset_0_0_0_1px_var(--line)]">
                     <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="World map with the live day and night side" className="absolute inset-0 size-full">
-                        <rect width={W} height={H} fill="var(--page)" />
-                        {graticule && <path d={graticule} fill="none" stroke="var(--line)" strokeWidth={0.7} />}
+                        <rect width={W} height={H} fill="var(--map-sea)" />
+                        {graticule && <path d={graticule} fill="none" stroke="var(--map-stroke)" strokeWidth={0.7} />}
                         {land?.map((shape, i) => (
-                            <path key={i} d={shape} fill="var(--line-strong)" stroke="var(--line)" strokeWidth={0.4} />
+                            <path key={i} d={shape} fill="var(--map-land)" stroke="var(--map-stroke)" strokeWidth={0.4} />
                         ))}
-                        {night.soft && <path d={night.soft} fill="oklch(0 0 0)" fillOpacity={0.3} />}
-                        {night.core && <path d={night.core} fill="oklch(0 0 0)" fillOpacity={0.62} />}
+                        {night.soft && <path d={night.soft} fill="var(--map-night)" style={{ fillOpacity: 'var(--map-night-soft)' }} />}
+                        {night.core && <path d={night.core} fill="var(--map-night)" style={{ fillOpacity: 'var(--map-night-core)' }} />}
                         {dots.map((dot) => {
                             const active = hovered?.city.name === dot.city.name;
                             const pinned = PINNED.has(dot.city.name);
@@ -211,7 +211,7 @@ export default function WorldClock() {
                                         cx={dot.x}
                                         cy={dot.y}
                                         r={active ? 5 : pinned ? 4 : 3.4}
-                                        fill={active ? 'var(--brand)' : pinned ? 'var(--brand)' : 'oklch(0.95 0.006 95)'}
+                                        fill={active ? 'var(--brand)' : pinned ? 'var(--brand)' : 'var(--map-dot)'}
                                         fillOpacity={active || pinned ? 1 : 0.72}
                                         stroke="var(--page)"
                                         strokeWidth={active ? 1.5 : 0.8}
@@ -228,7 +228,7 @@ export default function WorldClock() {
 
                     {hovered && !PINNED.has(hovered.city.name) && (
                         <div
-                            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+10px)] rounded-[9px] bg-card px-2.5 py-1.5 text-center shadow-[0_10px_30px_oklch(0_0_0/0.6),inset_0_0_0_1px_var(--line-strong)]"
+                            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+10px)] rounded-[9px] bg-card px-2.5 py-1.5 text-center shadow-[var(--shadow-popup)]"
                             style={{ left: `${(hovered.x / W) * 100}%`, top: `${(hovered.y / H) * 100}%` }}
                         >
                             <span className="block text-[11px] font-bold text-muted-foreground">{hovered.city.name}</span>

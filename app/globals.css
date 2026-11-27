@@ -4,35 +4,85 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design language: dashboard-craft (floated shell, dark chrome, browser tabs,
- * hatch shells, bento tiles) in a dark warm workspace.
+ * Design language: dashboard-craft (floated shell, chrome, browser tabs,
+ * hatch shells, bento tiles) in a warm workspace.
  * Two hues carry everything: neutral hue 95 (warm) and accent hue 176 (OpenStock teal).
  * Up/down share one lightness (0.70) and chroma % so neither shouts louder.
+ *
+ * Two themes, one token set. `:root` is the light palette; `.dark` overrides the same
+ * names, so every rule below is written once and works in both. The only things that
+ * genuinely flip (rather than just change value) are the translucent overlays and the
+ * shadows, which is why they are tokens instead of inline white/black.
  */
 :root {
-    --page:        oklch(0.13 0.006 95);    /* near-black behind the floated app */
-    --side:        oklch(0.165 0.007 95);   /* sidebar + tab chrome */
-    --frame:       oklch(0.185 0.007 95);   /* hatch shell frame (recessed) */
-    --canvas:      oklch(0.205 0.007 95);   /* workspace; active tab = canvas */
-    --card:        oklch(0.235 0.008 95);   /* inner card (raised) */
-    --hover:       oklch(0.27 0.008 95);
-    --line:        oklch(0.29 0.008 95);
-    --line-strong: oklch(0.36 0.01 95);
-    --text:        oklch(0.95 0.006 95);
-    --muted:       oklch(0.74 0.012 95);
-    --faint:       oklch(0.62 0.012 95);
+    --page:        oklch(0.962 0.004 95);   /* behind the floated app */
+    --side:        oklch(0.985 0.003 95);   /* sidebar + tab chrome */
+    --frame:       oklch(0.938 0.006 95);   /* hatch shell frame (recessed) */
+    --canvas:      oklch(0.995 0.001 95);   /* workspace; active tab = canvas */
+    --card:        oklch(1 0 0);            /* inner card (raised) */
+    --hover:       oklch(0.955 0.005 95);
+    --line:        oklch(0.905 0.006 95);
+    --line-strong: oklch(0.845 0.008 95);
+    --text:        oklch(0.235 0.012 95);
+    --muted:       oklch(0.455 0.012 95);
+    --faint:       oklch(0.53 0.012 95);
 
-    --brand:        oklch(0.80 0.13 176);   /* fills + icons */
-    --brand-strong: oklch(0.72 0.12 176);
-    --brand-ink:    oklch(0.85 0.12 176);   /* the only brand colour allowed as text */
-    --brand-soft:   oklch(0.31 0.05 176);   /* brand as a fill behind text */
-    --on-brand:     oklch(0.22 0.04 176);
+    --brand:        oklch(0.545 0.115 176); /* fills + icons */
+    --brand-strong: oklch(0.48 0.10 176);
+    --brand-ink:    oklch(0.45 0.095 176);  /* the only brand colour allowed as text */
+    --brand-soft:   oklch(0.945 0.032 176); /* brand as a fill behind text */
+    --on-brand:     oklch(0.995 0.004 176);
 
-    --up:        oklch(0.70 0.164 150);
-    --up-soft:   oklch(0.30 0.055 150);
-    --down:      oklch(0.70 0.162 25);
-    --down-soft: oklch(0.30 0.055 25);
-    --warn:      oklch(0.76 0.119 70);
+    --up:        oklch(0.50 0.135 150);
+    --up-soft:   oklch(0.945 0.045 150);
+    --down:      oklch(0.53 0.155 25);
+    --down-soft: oklch(0.95 0.032 25);
+    --warn:      oklch(0.56 0.125 70);
+
+    /* Translucent surfaces. On dark these are lighten-with-white, on light darken-with-black. */
+    --tint-1:  oklch(0 0 0 / 0.022);        /* zebra rows, the faintest wash */
+    --tint-2:  oklch(0 0 0 / 0.035);        /* icon wells, resting fills */
+    --tint-3:  oklch(0 0 0 / 0.055);        /* hover */
+    --tint-4:  oklch(0 0 0 / 0.08);         /* pressed / selected */
+    --hairline: oklch(0 0 0 / 0.06);        /* row dividers */
+    --edge-hi:  oklch(1 0 0 / 0.55);        /* 1px top highlight on filled buttons */
+    --chrome-ink:       oklch(0 0 0 / 0.55);/* inactive tab / chrome icon */
+    --chrome-ink-hover: oklch(0 0 0 / 0.78);
+    --hatch-line: oklch(0.55 0.01 95 / 0.16);
+    --well:     oklch(0.945 0.005 95);      /* logo well behind tickers */
+    --brand-ring: oklch(0.545 0.115 176 / 0.3);
+
+    --shadow-app:     0 0 0 1px oklch(0 0 0 / 0.06), 0 10px 30px oklch(0 0 0 / 0.08);
+    --shadow-card:    inset 0 1px 0 oklch(1 0 0), 0 0 0 1px oklch(0 0 0 / 0.05), 0 1px 2px oklch(0 0 0 / 0.05);
+    --shadow-hatch:   0 0 0 1px oklch(0 0 0 / 0.05), 0 4px 14px oklch(0 0 0 / 0.06);
+    --shadow-pop:     0 20px 50px oklch(0 0 0 / 0.16);
+    --shadow-preview: 0 0 0 1px oklch(0 0 0 / 0.07), 0 24px 60px oklch(0 0 0 / 0.12);
+    --shadow-popup:   0 10px 30px oklch(0 0 0 / 0.12), inset 0 0 0 1px var(--line-strong);
+    --shadow-primary: inset 0 1px 0 oklch(1 0 0 / 0.22), 0 4px 14px oklch(0.545 0.115 176 / 0.28);
+    --shadow-text:    0 1px 6px oklch(1 0 0 / 0.85);
+
+    /* World map: the sea, the land, and the night side drawn over both. */
+    --map-sea:        oklch(0.972 0.003 95);
+    --map-land:       oklch(0.885 0.007 95);
+    --map-stroke:     oklch(0.83 0.008 95);
+    --map-dot:        oklch(0.42 0.012 95);
+    --map-night:      oklch(0.34 0.045 255);
+    --map-night-core: 0.52;
+    --map-night-soft: 0.20;
+
+    /* Legacy gray ramp used by the auth forms. Light inverts it: what was a dark surface
+       becomes a light one, and what was pale text becomes dark text. */
+    --gray-50:  oklch(0.235 0.012 95);
+    --gray-100: oklch(0.285 0.012 95);
+    --gray-200: oklch(0.385 0.011 95);
+    --gray-300: oklch(0.46 0.011 95);
+    --gray-400: oklch(0.52 0.011 95);
+    --gray-500: oklch(0.56 0.011 95);
+    --gray-600: oklch(0.86 0.007 95);
+    --gray-700: oklch(0.90 0.007 95);
+    --gray-800: oklch(0.955 0.005 95);
+    --gray-900: oklch(0.975 0.004 95);
+    --gray-950: oklch(0.99 0.002 95);
 
     --tab-ease: cubic-bezier(0.32, 0.72, 0, 1);
     --ui-ease:  cubic-bezier(0.2, 0, 0, 1);
@@ -55,6 +105,74 @@
     --border: var(--line);
     --input: var(--line-strong);
     --ring: var(--brand);
+}
+
+/* The original dark palette. Same token names, so nothing above has to know which theme is on. */
+.dark {
+    --page:        oklch(0.13 0.006 95);    /* near-black behind the floated app */
+    --side:        oklch(0.165 0.007 95);   /* sidebar + tab chrome */
+    --frame:       oklch(0.185 0.007 95);   /* hatch shell frame (recessed) */
+    --canvas:      oklch(0.205 0.007 95);   /* workspace; active tab = canvas */
+    --card:        oklch(0.235 0.008 95);   /* inner card (raised) */
+    --hover:       oklch(0.27 0.008 95);
+    --line:        oklch(0.29 0.008 95);
+    --line-strong: oklch(0.36 0.01 95);
+    --text:        oklch(0.95 0.006 95);
+    --muted:       oklch(0.74 0.012 95);
+    --faint:       oklch(0.62 0.012 95);
+
+    --brand:        oklch(0.80 0.13 176);
+    --brand-strong: oklch(0.72 0.12 176);
+    --brand-ink:    oklch(0.85 0.12 176);
+    --brand-soft:   oklch(0.31 0.05 176);
+    --on-brand:     oklch(0.22 0.04 176);
+
+    --up:        oklch(0.70 0.164 150);
+    --up-soft:   oklch(0.30 0.055 150);
+    --down:      oklch(0.70 0.162 25);
+    --down-soft: oklch(0.30 0.055 25);
+    --warn:      oklch(0.76 0.119 70);
+
+    --tint-1:  oklch(1 0 0 / 0.012);
+    --tint-2:  oklch(1 0 0 / 0.05);
+    --tint-3:  oklch(1 0 0 / 0.07);
+    --tint-4:  oklch(1 0 0 / 0.1);
+    --hairline: oklch(1 0 0 / 0.045);
+    --edge-hi:  oklch(1 0 0 / 0.35);
+    --chrome-ink:       oklch(1 0 0 / 0.55);
+    --chrome-ink-hover: oklch(1 0 0 / 0.8);
+    --hatch-line: oklch(0.4 0.01 95 / 0.22);
+    --well:     oklch(0.96 0.004 95);
+    --brand-ring: oklch(0.8 0.13 176 / 0.35);
+
+    --shadow-app:     0 0 0 1px oklch(1 0 0 / 0.04), 0 12px 40px oklch(0 0 0 / 0.45);
+    --shadow-card:    inset 0 1px 0 oklch(1 0 0 / 0.05), 0 0 0 1px oklch(0 0 0 / 0.25);
+    --shadow-hatch:   0 0 0 1px oklch(1 0 0 / 0.035), 0 6px 18px oklch(0 0 0 / 0.22);
+    --shadow-pop:     0 24px 60px oklch(0 0 0 / 0.55);
+    --shadow-preview: 0 0 0 1px oklch(1 0 0 / 0.05), 0 30px 80px oklch(0 0 0 / 0.55);
+    --shadow-popup:   0 10px 30px oklch(0 0 0 / 0.6), inset 0 0 0 1px var(--line-strong);
+    --shadow-primary: inset 0 1px 0 oklch(1 0 0 / 0.35), 0 6px 18px oklch(0.8 0.13 176 / 0.18);
+    --shadow-text:    0 2px 10px oklch(0 0 0 / 0.7);
+
+    --map-sea:        var(--page);
+    --map-land:       oklch(0.36 0.01 95);
+    --map-stroke:     var(--line);
+    --map-dot:        oklch(0.95 0.006 95);
+    --map-night:      oklch(0 0 0);
+    --map-night-core: 0.62;
+    --map-night-soft: 0.30;
+
+    --gray-50:  oklch(0.97 0.004 95);
+    --gray-100: oklch(0.95 0.006 95);
+    --gray-200: oklch(0.90 0.007 95);
+    --gray-300: oklch(0.83 0.009 95);
+    --gray-400: oklch(0.80 0.01 95);
+    --gray-500: oklch(0.66 0.012 95);
+    --gray-600: oklch(0.36 0.01 95);
+    --gray-700: oklch(0.27 0.008 95);
+    --gray-800: oklch(0.205 0.007 95);
+    --gray-900: oklch(0.13 0.006 95);
+    --gray-950: oklch(0.10 0.005 95);
 }
 
 @theme inline {
@@ -85,6 +203,10 @@
     --color-frame: var(--frame);
     --color-canvas: var(--canvas);
     --color-hover: var(--hover);
+    --color-tint: var(--tint-3);
+    --color-tint-soft: var(--tint-2);
+    --color-hairline: var(--hairline);
+    --color-well: var(--well);
     --color-line: var(--line);
     --color-line-strong: var(--line-strong);
     --color-faint: var(--faint);
@@ -108,17 +230,17 @@
 /* Legacy utility scales, repointed so older pages (about, help, terms, api-docs)
    pick up the warm palette without a rewrite. */
 @theme {
-    --color-gray-50:  oklch(0.97 0.004 95);
-    --color-gray-100: oklch(0.95 0.006 95);
-    --color-gray-200: oklch(0.90 0.007 95);
-    --color-gray-300: oklch(0.83 0.009 95);
-    --color-gray-400: oklch(0.80 0.01 95);
-    --color-gray-500: oklch(0.66 0.012 95);
-    --color-gray-600: oklch(0.36 0.01 95);
-    --color-gray-700: oklch(0.27 0.008 95);
-    --color-gray-800: oklch(0.205 0.007 95);
-    --color-gray-900: oklch(0.13 0.006 95);
-    --color-gray-950: oklch(0.10 0.005 95);
+    --color-gray-50:  var(--gray-50);
+    --color-gray-100: var(--gray-100);
+    --color-gray-200: var(--gray-200);
+    --color-gray-300: var(--gray-300);
+    --color-gray-400: var(--gray-400);
+    --color-gray-500: var(--gray-500);
+    --color-gray-600: var(--gray-600);
+    --color-gray-700: var(--gray-700);
+    --color-gray-800: var(--gray-800);
+    --color-gray-900: var(--gray-900);
+    --color-gray-950: var(--gray-950);
 
     --color-teal-300: oklch(0.88 0.10 176);
     --color-teal-400: oklch(0.85 0.12 176);
@@ -140,7 +262,9 @@
     }
     html {
         font-size: 14px;
+        color-scheme: light;
     }
+    html.dark { color-scheme: dark; }
     body {
         background: var(--page);
         color: var(--text);
@@ -193,7 +317,7 @@
         overflow: hidden;
         border-radius: 16px;
         background: var(--side);
-        box-shadow: 0 0 0 1px oklch(1 0 0 / 0.04), 0 12px 40px oklch(0 0 0 / 0.45);
+        box-shadow: var(--shadow-app);
     }
 
     .workspace {
@@ -258,9 +382,9 @@
         color: var(--muted);
         transition: background-color 150ms var(--ui-ease), color 150ms var(--ui-ease), transform 150ms var(--ui-ease);
     }
-    .side-item:hover { background: oklch(1 0 0 / 0.06); color: var(--text); }
+    .side-item:hover { background: var(--tint-3); color: var(--text); }
     .side-item:active { transform: scale(0.97); }
-    .side-item.is-active { background: oklch(1 0 0 / 0.08); color: var(--text); }
+    .side-item.is-active { background: var(--tint-4); color: var(--text); }
     .side-item svg { flex: none; width: 17px; height: 17px; }
 
     .side-cta {
@@ -273,7 +397,7 @@
         font-weight: 700;
         color: var(--on-brand);
         background: var(--brand);
-        box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.35), 0 6px 18px oklch(0.8 0.13 176 / 0.18);
+        box-shadow: var(--shadow-primary);
         transition: background-color 150ms var(--ui-ease), transform 150ms var(--ui-ease);
     }
     .side-cta:hover { background: var(--brand-ink); }
@@ -324,7 +448,7 @@
         max-width: 200px;
         height: 36px;
         padding: 0 10px 2px 14px;
-        color: oklch(1 0 0 / 0.55);
+        color: var(--chrome-ink);
         font-weight: 600;
         white-space: nowrap;
         transition: color 150ms var(--ui-ease);
@@ -338,8 +462,8 @@
         background: transparent;
         transition: background-color 150ms var(--ui-ease);
     }
-    .tab:hover { color: oklch(1 0 0 / 0.8); }
-    .tab:hover:not(.is-active)::before { background: oklch(1 0 0 / 0.07); }
+    .tab:hover { color: var(--chrome-ink-hover); }
+    .tab:hover:not(.is-active)::before { background: var(--tint-3); }
     .tab.is-active { color: var(--text); }
     .tab-label { overflow: hidden; text-overflow: ellipsis; flex: 1; }
     .tab svg { flex: none; width: 15px; height: 15px; }
@@ -355,7 +479,7 @@
         opacity: 0.6;
         transition: background-color 150ms var(--ui-ease), opacity 150ms var(--ui-ease);
     }
-    .tab-close:hover { opacity: 1; background: oklch(1 0 0 / 0.1); }
+    .tab-close:hover { opacity: 1; background: var(--tint-4); }
     .tab-close svg { width: 13px; height: 13px; }
 
     .tab-glider {
@@ -396,10 +520,10 @@
         height: 30px;
         margin-bottom: 3px;
         border-radius: 8px;
-        color: oklch(1 0 0 / 0.55);
+        color: var(--chrome-ink);
         transition: background-color 150ms var(--ui-ease), color 150ms var(--ui-ease), transform 150ms var(--ui-ease);
     }
-    .chrome-btn:hover { background: oklch(1 0 0 / 0.1); color: var(--text); }
+    .chrome-btn:hover { background: var(--tint-4); color: var(--text); }
     .chrome-btn:active { transform: scale(0.94); }
     .chrome-btn svg { width: 17px; height: 17px; }
 
@@ -414,16 +538,16 @@
         padding: var(--shell-pad);
         border-radius: calc(var(--inner-r) + var(--shell-pad));
         background:
-            repeating-linear-gradient(-45deg, oklch(0.4 0.01 95 / 0.22) 0 1px, transparent 1px 5px),
+            repeating-linear-gradient(-45deg, var(--hatch-line) 0 1px, transparent 1px 5px),
             var(--frame);
-        box-shadow: 0 0 0 1px oklch(1 0 0 / 0.035), 0 6px 18px oklch(0 0 0 / 0.22);
+        box-shadow: var(--shadow-hatch);
     }
 
     .card {
         min-width: 0;
         border-radius: 14px;
         background: var(--card);
-        box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.05), 0 0 0 1px oklch(0 0 0 / 0.25);
+        box-shadow: var(--shadow-card);
     }
 
     .section-head {
@@ -488,7 +612,7 @@
         padding: 14px 14px 12px;
         border-radius: 14px;
         background: var(--card);
-        box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.05);
+        box-shadow: inset 0 1px 0 var(--edge-hi);
     }
     @media (max-width: 1023px) { .bento-tile { grid-column: span 6; } }
 
@@ -508,7 +632,7 @@
         width: 28px;
         height: 28px;
         border-radius: 999px;
-        background: oklch(1 0 0 / 0.06);
+        background: var(--tint-2);
         color: var(--muted);
     }
     .bento-ico svg { width: 15px; height: 15px; }
@@ -552,7 +676,7 @@
         font-size: 12px;
         font-weight: 700;
         font-variant-numeric: tabular-nums;
-        background: oklch(1 0 0 / 0.06);
+        background: var(--tint-2);
         color: var(--muted);
     }
     .pill svg { width: 12px; height: 12px; }
@@ -579,7 +703,7 @@
     .btn-primary {
         color: var(--on-brand);
         background: var(--brand);
-        box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.35), 0 6px 18px oklch(0.8 0.13 176 / 0.16);
+        box-shadow: var(--shadow-primary);
     }
     .btn-primary:hover:not(:disabled) { background: var(--brand-ink); }
     .btn-ghost {
@@ -587,7 +711,7 @@
         box-shadow: inset 0 0 0 1px var(--line);
     }
     .btn-ghost:hover:not(:disabled) { background: var(--hover); color: var(--text); }
-    .btn-ghost.is-on { color: var(--brand-ink); box-shadow: inset 0 0 0 1px oklch(0.8 0.13 176 / 0.35); background: var(--brand-soft); }
+    .btn-ghost.is-on { color: var(--brand-ink); box-shadow: inset 0 0 0 1px var(--brand-ring); background: var(--brand-soft); }
 
     .icon-btn {
         display: grid;
@@ -633,16 +757,16 @@
     .data-table td {
         height: 58px;
         padding: 0 14px;
-        border-bottom: 1px solid oklch(1 0 0 / 0.04);
+        border-bottom: 1px solid var(--hairline);
         white-space: nowrap;
     }
-    .data-table tbody tr:nth-child(odd) td { background: oklch(1 0 0 / 0.012); }
+    .data-table tbody tr:nth-child(odd) td { background: var(--tint-1); }
     .data-table tbody tr { transition: background-color 150ms var(--ui-ease); }
-    .data-table tbody tr:hover td { background: oklch(1 0 0 / 0.035); }
+    .data-table tbody tr:hover td { background: var(--tint-2); }
     .data-table tbody tr:last-child td { border-bottom: 0; }
     .data-table .is-num { text-align: right; }
 
-    .row-list > * + * { border-top: 1px solid oklch(1 0 0 / 0.05); }
+    .row-list > * + * { border-top: 1px solid var(--hairline); }
 
     .logo-well {
         display: grid;
@@ -652,7 +776,7 @@
         height: 34px;
         overflow: hidden;
         border-radius: 999px;
-        background: oklch(0.96 0.004 95);
+        background: var(--well);
         color: var(--on-brand);
         font-weight: 700;
         font-size: 13px;
@@ -675,7 +799,7 @@
         height: 44px;
         margin-bottom: 6px;
         border-radius: 999px;
-        background: oklch(1 0 0 / 0.05);
+        background: var(--tint-2);
         color: var(--muted);
     }
     .empty-state h3 { font-size: 15px; font-weight: 700; color: var(--text); }
@@ -708,7 +832,7 @@
 @layer utilities {
     .yellow-btn {
         @apply h-12 cursor-pointer rounded-[11px] bg-brand text-on-brand font-bold text-base disabled:opacity-50 hover:bg-brand-ink active:scale-[0.97] transition-[background-color,transform] duration-150;
-        box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.35), 0 6px 18px oklch(0.8 0.13 176 / 0.16);
+        box-shadow: var(--shadow-primary);
     }
     .auth-layout {
         @apply flex flex-col justify-between lg:flex-row h-dvh bg-page relative overflow-hidden;
@@ -762,7 +886,7 @@
     /* Search palette */
     .search-dialog {
         @apply !bg-card lg:min-w-[720px] border-line fixed top-10 left-1/2 -translate-x-1/2 translate-y-10 rounded-2xl overflow-hidden;
-        box-shadow: 0 0 0 4px var(--frame), 0 24px 60px oklch(0 0 0 / 0.55);
+        box-shadow: 0 0 0 4px var(--frame), var(--shadow-pop);
     }
     .search-field {
         @apply !bg-card border-b border-line relative;

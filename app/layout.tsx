@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans, IBM_Plex_Mono, IBM_Plex_Sans_Arabic } from "next/fon
 import { Analytics } from "@vercel/analytics/next";
 import {Toaster} from "@/components/ui/sonner";
 import OntoLaunchCard from "@/components/OntoLaunchCard";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { THEME_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -26,8 +28,8 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OpenStock",
-  description: "OpenStock is an open-source alternative to expensive market platforms. Track nine markets, keep watchlists, and explore detailed company insights — built openly, for everyone, forever free.",
+  title: "Open",
+  description: "An open-source market platform. Track nine markets, keep watchlists, and explore detailed company insights — built openly, for everyone, forever free.",
 };
 
 export default function RootLayout({
@@ -36,13 +38,19 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="dark" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning>
+            <head>
+                {/* Applies the saved theme before the first paint, so no palette ever flashes. */}
+                <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+            </head>
             <body
                 className={`${jakarta.variable} ${arabic.variable} ${plexMono.variable} font-sans antialiased`}
             >
-                {children}
-                <Toaster/>
-                <OntoLaunchCard />
+                <ThemeProvider>
+                    {children}
+                    <Toaster/>
+                    <OntoLaunchCard />
+                </ThemeProvider>
                 <Analytics />
             </body>
         </html>

@@ -21,7 +21,7 @@ export function generateStaticParams(): Params[] {
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
     const { slug } = await params;
     const guide = findGuide(slug);
-    if (!guide) return { title: 'Guide not found | OpenStock', robots: { index: false, follow: false } };
+    if (!guide) return { title: 'Guide not found | Open', robots: { index: false, follow: false } };
 
     const title = `${guide.title} | OpenStock`;
     const url = `${siteUrl()}/compare/${guide.slug}`;
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
         title,
         description: guide.description,
         alternates: { canonical: url },
-        openGraph: { title, description: guide.description, url, siteName: 'OpenStock', type: 'article' },
+        openGraph: { title, description: guide.description, url, siteName: 'Open', type: 'article' },
         twitter: { card: 'summary', title, description: guide.description },
     };
 }

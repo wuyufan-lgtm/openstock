@@ -40,7 +40,7 @@ export default function ChoiceChips<T extends FieldValues>({ name, label, option
                                     className={cn(
                                         'h-9 rounded-full px-3.5 text-[13.5px] font-semibold transition-[background-color,color,box-shadow,transform] duration-150 active:scale-[0.96]',
                                         selected
-                                            ? 'bg-brand-soft text-brand-ink shadow-[inset_0_0_0_1px_oklch(0.8_0.13_176/0.45)]'
+                                            ? 'bg-brand-soft text-brand-ink shadow-[inset_0_0_0_1px_var(--brand-ring)]'
                                             : 'text-muted-foreground shadow-[inset_0_0_0_1px_var(--line)] hover:bg-hover hover:text-foreground',
                                     )}
                                 >

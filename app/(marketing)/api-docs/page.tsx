@@ -6,7 +6,7 @@ import { REPO_URL } from '@/lib/constants';
 import { LATEST_RELEASE } from '@/lib/changelog';
 
 export const metadata = {
-    title: 'Architecture | OpenStock',
+    title: 'Architecture | Open',
     description: 'How OpenStock works: market data, background jobs and the AI behind the emails.',
 };
 
