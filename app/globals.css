@@ -818,6 +818,11 @@
         width: 100% !important;
         background: transparent !important;
     }
+    /* TradingView's embed reads the HOST page's color-scheme and renders its own chrome with it,
+       overriding the colorTheme in the config. Pin the embeds to light so the config alone decides. */
+    .tradingview-widget-container iframe {
+        color-scheme: light !important;
+    }
     .tradingview-widget-copyright {
         padding: 6px 0;
         font-size: 11px;
