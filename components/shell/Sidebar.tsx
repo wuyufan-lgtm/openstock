@@ -34,7 +34,7 @@ const Sidebar = ({ user, watchlist }: SidebarProps) => {
 
     return (
         <aside className="sidebar">
-            <Link href="/dashboard" className="flex items-center px-2 pt-1 pb-2" aria-label={t('homeAria')}>
+            <Link href="/dashboard" className="flex min-h-9 items-center px-2 pt-1 pb-2" aria-label={t('homeAria')}>
                 <Logo priority />
             </Link>
 

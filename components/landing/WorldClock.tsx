@@ -62,6 +62,9 @@ const CITIES: City[] = [
     { name: 'Auckland', lon: 174.76, lat: -36.85, tz: 'Pacific/Auckland' },
 ];
 
+// The three cities whose time is always on the map: the markets most people here watch.
+const PINNED = new Set(['New York', 'London', 'Hong Kong']);
+
 const RAD = Math.PI / 180;
 
 // Sub-solar point, good to a few arcminutes: enough for a day/night edge that looks right at any hour.
@@ -95,9 +98,22 @@ function useClock(interval = 1000) {
     return now;
 }
 
-function TooltipTime({ timeZone }: { timeZone: string }) {
+function LiveTime({ timeZone, className }: { timeZone: string; className?: string }) {
     const now = useClock();
-    return <span className="block text-[17px] font-bold leading-tight text-brand-ink">{now ? formatTime(now, timeZone) : '--:--'}</span>;
+    return <span className={className}>{now ? formatTime(now, timeZone) : '--:--'}</span>;
+}
+
+// The pinned cities keep their time on the map; everything else reveals it on hover.
+function PinnedLabel({ dot }: { dot: Dot }) {
+    return (
+        <div
+            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+7px)] rounded-[7px] bg-card/90 px-2 py-1 text-center shadow-[inset_0_0_0_1px_var(--line-strong)] backdrop-blur-sm"
+            style={{ left: `${(dot.x / W) * 100}%`, top: `${(dot.y / H) * 100}%` }}
+        >
+            <span className="block text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">{dot.city.name}</span>
+            <LiveTime timeZone={dot.city.tz} className="block text-[13px] font-bold leading-tight text-brand-ink" />
+        </div>
+    );
 }
 
 function LocalClock() {
@@ -187,15 +203,16 @@ export default function WorldClock() {
                         {night.core && <path d={night.core} fill="oklch(0 0 0)" fillOpacity={0.62} />}
                         {dots.map((dot) => {
                             const active = hovered?.city.name === dot.city.name;
+                            const pinned = PINNED.has(dot.city.name);
                             return (
                                 <g key={dot.city.name} onMouseEnter={() => setHovered(dot)} onMouseLeave={() => setHovered(null)}>
                                     <circle cx={dot.x} cy={dot.y} r={11} fill="transparent" />
                                     <circle
                                         cx={dot.x}
                                         cy={dot.y}
-                                        r={active ? 5 : 3.4}
-                                        fill={active ? 'var(--brand)' : 'oklch(0.95 0.006 95)'}
-                                        fillOpacity={active ? 1 : 0.72}
+                                        r={active ? 5 : pinned ? 4 : 3.4}
+                                        fill={active ? 'var(--brand)' : pinned ? 'var(--brand)' : 'oklch(0.95 0.006 95)'}
+                                        fillOpacity={active || pinned ? 1 : 0.72}
                                         stroke="var(--page)"
                                         strokeWidth={active ? 1.5 : 0.8}
                                         className="transition-[r,fill] duration-150"
@@ -205,13 +222,17 @@ export default function WorldClock() {
                         })}
                     </svg>
 
-                    {hovered && (
+                    {dots.filter((dot) => PINNED.has(dot.city.name)).map((dot) => (
+                        <PinnedLabel key={dot.city.name} dot={dot} />
+                    ))}
+
+                    {hovered && !PINNED.has(hovered.city.name) && (
                         <div
                             className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-[calc(100%+10px)] rounded-[9px] bg-card px-2.5 py-1.5 text-center shadow-[0_10px_30px_oklch(0_0_0/0.6),inset_0_0_0_1px_var(--line-strong)]"
                             style={{ left: `${(hovered.x / W) * 100}%`, top: `${(hovered.y / H) * 100}%` }}
                         >
                             <span className="block text-[11px] font-bold text-muted-foreground">{hovered.city.name}</span>
-                            <TooltipTime timeZone={hovered.city.tz} />
+                            <LiveTime timeZone={hovered.city.tz} className="block text-[17px] font-bold leading-tight text-brand-ink" />
                         </div>
                     )}
 

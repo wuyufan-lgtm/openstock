@@ -1,20 +1,17 @@
 import Link from "next/link";
-import { Github, Linkedin } from "lucide-react";
+import { Globe, Instagram } from "lucide-react";
 import Logo from "@/components/brand/Logo";
-import { DISCORD_URL, REPO_URL } from "@/lib/constants";
-
-const LINKEDIN_URL = 'https://www.linkedin.com/company/opendevsociety-in/';
 
 const SOCIAL = [
-    { href: REPO_URL, label: 'Open on GitHub', icon: Github },
-    { href: DISCORD_URL, label: 'Open Dev Society on Discord', icon: DiscordIcon },
-    { href: LINKEDIN_URL, label: 'Open Dev Society on LinkedIn', icon: Linkedin },
+    { href: 'https://evanquinne.com', label: 'Evan & Quinne — evanquinne.com', icon: Globe },
+    { href: 'https://www.instagram.com/wu__yufan/', label: 'Instagram — @wu__yufan', icon: Instagram },
+    { href: 'https://www.threads.net/@wu__yufan', label: 'Threads — @wu__yufan', icon: ThreadsIcon },
 ] as const;
 
-function DiscordIcon({ className }: { className?: string }) {
+function ThreadsIcon({ className }: { className?: string }) {
     return (
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
-            <path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.11 13.11 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.055c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.211 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418m7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418" />
+            <path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z" />
         </svg>
     );
 }
@@ -25,7 +22,7 @@ export default function SiteFooter() {
             <div className="mx-auto max-w-[1200px] px-5">
                 <div className="flex flex-col items-start gap-5 py-14">
                     <Link href="/" aria-label="Open home" className="w-fit rounded-[6px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-side">
-                        <Logo className="gap-3" markClassName="size-11" wordClassName="text-[26px]" />
+                        <Logo className="gap-2" markClassName="size-7" wordClassName="text-[26px]" />
                     </Link>
                     <p className="text-[14px] leading-relaxed text-muted-foreground">An open-source market platform</p>
                     <ul className="flex items-center gap-1.5">

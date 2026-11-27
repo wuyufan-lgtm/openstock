@@ -33,8 +33,11 @@ export default function LandingPage() {
                 <div className="mt-12 grid items-stretch gap-3 lg:grid-cols-[minmax(0,1fr)_340px]">
                     <WorldClock />
                     <div className="hatch">
-                        <div className="card flex h-full flex-col justify-center px-6 pb-6 pt-6">
-                            <MarketDial />
+                        <div className="card flex h-full flex-col px-6 pb-6 pt-4">
+                            <h2 className="text-[15px] font-bold tracking-[-0.02em]">New York</h2>
+                            <div className="flex flex-1 items-center justify-center py-2">
+                                <MarketDial />
+                            </div>
                         </div>
                     </div>
                 </div>
