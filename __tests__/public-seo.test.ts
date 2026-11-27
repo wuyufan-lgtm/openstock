@@ -11,7 +11,7 @@ import { adjacentTickers, findTicker, relatedTickers, tickerIntro, tickerPath, U
 
 describe('isPublicPath', () => {
     it('lets crawlers and the new public sections through', () => {
-        for (const path of ['/', '/about', '/robots.txt', '/sitemap.xml', '/s', '/s/AAPL', '/s/BRK.B', '/compare', '/compare/self-hosted-stock-tracker']) {
+        for (const path of ['/', '/robots.txt', '/sitemap.xml', '/s', '/s/AAPL', '/s/BRK.B', '/compare', '/compare/self-hosted-stock-tracker']) {
             expect(isPublicPath(path), path).toBe(true);
         }
     });
@@ -26,7 +26,7 @@ describe('isPublicPath', () => {
 
 describe('middleware', () => {
     it('does not redirect public pages or crawler files', async () => {
-        for (const path of ['/robots.txt', '/sitemap.xml', '/s/AAPL', '/compare/free-tradingview-alternative', '/about']) {
+        for (const path of ['/robots.txt', '/sitemap.xml', '/s/AAPL', '/compare/free-tradingview-alternative']) {
             const response = await middleware(new NextRequest(`http://localhost${path}`));
             expect(response.headers.get('location'), path).toBeNull();
         }

@@ -58,7 +58,9 @@
       "sa": "السعودية",
       "crypto": "العملات الرقمية",
       "fx": "الفوركس",
-      "pl": "بولندا"
+      "pl": "بولندا",
+      "hk": "هونغ كونغ",
+      "jp": "اليابان"
     },
     "feed": {
       "live": "مباشرة",
@@ -83,7 +85,9 @@
       "commodityFX": "عملات السلع",
       "banksInsurance": "البنوك والتأمين",
       "energyIndustry": "الطاقة والصناعة",
-      "consumerTech": "الاستهلاك والتقنية"
+      "consumerTech": "الاستهلاك والتقنية",
+      "consumerTelecom": "الاستهلاك والاتصالات",
+      "consumerIndustry": "الاستهلاك والصناعة"
     }
   },
   "WatchlistTable": {
@@ -248,7 +252,9 @@
   "MarketSwitcher": {
     "label": "السوق",
     "openNow": "مفتوح الآن",
-    "closedNow": "مغلق الآن"
+    "closedNow": "مغلق الآن",
+    "moreMarkets": "أسواق أكثر",
+    "collapseMarkets": "عرض أسواق أقل"
   },
   "PulseTile": {
     "vsPrevClose": "⁦{change}⁩ عن الإغلاق السابق",

@@ -58,7 +58,9 @@
       "sa": "Arabia Saudyjska",
       "crypto": "Kryptowaluty",
       "fx": "Forex",
-      "pl": "Polska"
+      "pl": "Polska",
+      "hk": "Hongkong",
+      "jp": "Japonia"
     },
     "feed": {
       "live": "Na żywo",
@@ -83,7 +85,9 @@
       "commodityFX": "Waluty surowcowe",
       "banksInsurance": "Banki i ubezpieczenia",
       "energyIndustry": "Energetyka i przemysł",
-      "consumerTech": "Konsumpcja i technologie"
+      "consumerTech": "Konsumpcja i technologie",
+      "consumerTelecom": "Konsumpcja i telekomunikacja",
+      "consumerIndustry": "Konsumpcja i przemysł"
     }
   },
   "WatchlistTable": {
@@ -248,7 +252,9 @@
   "MarketSwitcher": {
     "label": "Rynki",
     "openNow": "Teraz otwarty",
-    "closedNow": "Teraz zamknięty"
+    "closedNow": "Teraz zamknięty",
+    "moreMarkets": "Więcej rynków",
+    "collapseMarkets": "Pokaż mniej rynków"
   },
   "PulseTile": {
     "vsPrevClose": "{change} vs poprz. zamknięcie",

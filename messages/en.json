@@ -58,7 +58,9 @@
       "sa": "Saudi Arabia",
       "crypto": "Crypto",
       "fx": "Forex",
-      "pl": "Poland"
+      "pl": "Poland",
+      "hk": "Hong Kong",
+      "jp": "Japan"
     },
     "feed": {
       "live": "Live",
@@ -83,7 +85,9 @@
       "commodityFX": "Commodity FX",
       "banksInsurance": "Banks & insurance",
       "energyIndustry": "Energy & industry",
-      "consumerTech": "Consumer & tech"
+      "consumerTech": "Consumer & tech",
+      "consumerTelecom": "Consumer & telecom",
+      "consumerIndustry": "Consumer & industry"
     }
   },
   "WatchlistTable": {
@@ -248,7 +252,9 @@
   "MarketSwitcher": {
     "label": "Markets",
     "openNow": "Open now",
-    "closedNow": "Closed now"
+    "closedNow": "Closed now",
+    "moreMarkets": "More markets",
+    "collapseMarkets": "Show fewer markets"
   },
   "PulseTile": {
     "vsPrevClose": "{change} vs prev close",

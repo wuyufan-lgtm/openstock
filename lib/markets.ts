@@ -10,7 +10,7 @@
 
 import { isInternationalSymbol } from "@/lib/utils";
 
-export type MarketId = 'us' | 'in' | 'de' | 'ca' | 'au' | 'sa' | 'pl' | 'crypto' | 'fx';
+export type MarketId = 'us' | 'hk' | 'jp' | 'de' | 'in' | 'ca' | 'au' | 'sa' | 'pl' | 'crypto' | 'fx';
 
 type Hours = { open: number; close: number }; // minutes of the local day
 
@@ -48,6 +48,41 @@ export const MARKETS: Market[] = [
             { title: 'Consumer', symbols: [['NASDAQ:AMZN', 'Amazon'], ['NASDAQ:TSLA', 'Tesla'], ['NYSE:WMT', 'Walmart'], ['NASDAQ:COST', 'Costco'], ['NYSE:KO', 'Coca-Cola'], ['NASDAQ:NFLX', 'Netflix']] },
         ],
         heatmap: 'stocks', news: 'stock',
+    },
+    {
+        // Hong Kong blue chips, priced through their US-listed ADRs (OTC). Verified against TradingView's
+        // free embeds: HKEX-listed symbols themselves only show "This symbol is only available on
+        // TradingView" in the quote widgets, but the OTC ADRs render live quotes, overview tabs and news.
+        id: 'hk', name: 'Hong Kong', short: 'HK', timeZone: 'Asia/Hong_Kong', hours: { open: hm(9, 30), close: hm(16) }, feed: 'Delayed',
+        pulse: [
+            { symbol: 'OTC:TCEHY', label: 'Tencent' },
+            { symbol: 'OTC:BABAF', label: 'Alibaba' },
+            { symbol: 'OTC:MEITF', label: 'Meituan' },
+            { symbol: 'OTC:HKXCY', label: 'HKEX' },
+        ],
+        groups: [
+            { title: 'Technology', symbols: [['OTC:TCEHY', 'Tencent'], ['OTC:BABAF', 'Alibaba'], ['OTC:MEITF', 'Meituan'], ['OTC:XIACY', 'Xiaomi'], ['OTC:AIAGY', 'AIA']] },
+            { title: 'Financial', symbols: [['OTC:IDCBY', 'ICBC'], ['OTC:PNGAY', 'Ping An'], ['OTC:CIHHF', 'CMB'], ['OTC:HKXCY', 'HKEX']] },
+            { title: 'Consumer & industry', symbols: [['OTC:GELYF', 'Geely Auto'], ['OTC:HTHIY', 'Hitachi'], ['OTC:NISTF', 'Nippon Steel']] },
+        ],
+        news: 'stock',
+    },
+    {
+        // Japan blue chips through their US-listed ADRs, same reason as Hong Kong: TSE symbols are
+        // rejected by the free embeds ("only available on TradingView"), the ADRs render fine.
+        id: 'jp', name: 'Japan', short: 'JP', timeZone: 'Asia/Tokyo', hours: { open: hm(9), close: hm(15, 30) }, feed: 'Delayed',
+        pulse: [
+            { symbol: 'NYSE:SONY', label: 'Sony' },
+            { symbol: 'NYSE:TM', label: 'Toyota' },
+            { symbol: 'NYSE:MUFG', label: 'MUFG' },
+            { symbol: 'OTC:NTDOY', label: 'Nintendo' },
+        ],
+        groups: [
+            { title: 'Technology', symbols: [['NYSE:SONY', 'Sony'], ['OTC:NTDOY', 'Nintendo'], ['OTC:TOELF', 'Tokyo Electron'], ['OTC:FANUY', 'Fanuc'], ['OTC:KYCCF', 'Keyence']] },
+            { title: 'Industry', symbols: [['NYSE:TM', 'Toyota'], ['OTC:TOYOF', 'Toyota ADR'], ['OTC:HBCYF', 'HSBC'], ['OTC:HTHIY', 'Hitachi'], ['OTC:NISTF', 'Nippon Steel']] },
+            { title: 'Consumer', symbols: [['OTC:FRCOY', 'Fast Retailing'], ['OTC:JAPAY', 'Japan Tobacco'], ['OTC:SVNDY', 'Seven & i'], ['OTC:KAOCF', 'Kao'], ['OTC:SFTBY', 'SoftBank']] },
+        ],
+        news: 'stock',
     },
     {
         id: 'in', name: 'India', short: 'IN', timeZone: 'Asia/Kolkata', hours: { open: hm(9, 15), close: hm(15, 30) }, feed: 'End of day',
@@ -174,7 +209,7 @@ export const MARKET_COOKIE = 'openstock-market';
 
 export const getMarket = (id?: string | null) => MARKETS.find((m) => m.id === id) ?? MARKETS[0];
 
-const COUNTRY_MARKET: Record<string, MarketId> = { IN: 'in', DE: 'de', CA: 'ca', AU: 'au', SA: 'sa', PL: 'pl' };
+const COUNTRY_MARKET: Record<string, MarketId> = { HK: 'hk', JP: 'jp', IN: 'in', DE: 'de', CA: 'ca', AU: 'au', SA: 'sa', PL: 'pl' };
 export const marketForCountry = (country?: string | null): MarketId => COUNTRY_MARKET[country ?? ''] ?? DEFAULT_MARKET;
 
 // Finnhub free can price (and so alert on) US listings and Binance pairs only.
