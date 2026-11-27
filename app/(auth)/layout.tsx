@@ -5,6 +5,7 @@ import {redirect} from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import HtmlLang from "@/components/HtmlLang";
+import Logo from "@/components/brand/Logo";
 import {getSession} from "@/lib/better-auth/auth";
 import ProductPreview from "@/components/landing/ProductPreview";
 import { SocialProvidersProvider } from "@/components/forms/SocialAuthButtons";
@@ -28,8 +29,8 @@ const Layout = async ({ children }: { children : React.ReactNode }) => {
         <HtmlLang locale={locale} />
         <main className="auth-layout">
             <section className="auth-left-section scrollbar-hide-default">
-                <Link href="/" className="auth-logo flex items-center gap-2">
-                    <Image src="/assets/images/logo.png" alt="OpenStock" width={140} height={35} priority />
+                <Link href="/" className="auth-logo flex items-center gap-2" aria-label="Open home">
+                    <Logo priority />
                 </Link>
 
                 <div className="pb-6 lg:pb-8 flex-1">

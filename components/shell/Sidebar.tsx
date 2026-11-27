@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { BookOpen, Code2, Heart, Info, LayoutDashboard, LifeBuoy, LogOut, Search, Star } from "lucide-react";
 import { openSearch } from "@/components/SearchCommand";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import Logo from "@/components/brand/Logo";
 import { signOut } from "@/lib/actions/auth.actions";
 import { cn } from "@/lib/utils";
 
@@ -33,11 +34,8 @@ const Sidebar = ({ user, watchlist }: SidebarProps) => {
 
     return (
         <aside className="sidebar">
-            <Link href="/dashboard" className="flex items-center gap-2.5 px-2 pt-1 pb-2" aria-label={t('homeAria')}>
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand text-[17px] font-bold leading-none text-on-brand" aria-hidden>
-                    E
-                </span>
-                <span className="text-[19px] font-bold tracking-tight text-foreground">Open</span>
+            <Link href="/dashboard" className="flex items-center px-2 pt-1 pb-2" aria-label={t('homeAria')}>
+                <Logo priority />
             </Link>
 
             <button type="button" onClick={openSearch} className="side-cta">

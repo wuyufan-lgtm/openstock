@@ -1,65 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
-import SponsorsBand from "@/components/sponsors/SponsorsBand";
+import Logo from "@/components/brand/Logo";
 import { DISCORD_URL, REPO_URL } from "@/lib/constants";
 
 const LINKEDIN_URL = 'https://www.linkedin.com/company/opendevsociety-in/';
-const ODS_URL = 'https://opendevsociety.org';
-
-const PRODUCT_LINKS = [
-    { href: '/s', label: 'Stocks' },
-    { href: '/compare', label: 'Guides' },
-    { href: '/changelog', label: 'Changelog' },
-    { href: '/api-docs', label: 'Architecture' },
-] as const;
-
-const COMMUNITY_LINKS = [
-    { href: '/love', label: 'Wall of love' },
-    { href: '/sponsor', label: 'Sponsor' },
-    { href: REPO_URL, label: 'GitHub' },
-    { href: DISCORD_URL, label: 'Discord' },
-] as const;
-
-const COMPANY_LINKS = [
-    { href: '/about', label: 'About' },
-    { href: '/help', label: 'Help' },
-    { href: '/terms', label: 'Terms' },
-] as const;
 
 const SOCIAL = [
-    { href: REPO_URL, label: 'OpenStock on GitHub', icon: Github },
+    { href: REPO_URL, label: 'Open on GitHub', icon: Github },
     { href: DISCORD_URL, label: 'Open Dev Society on Discord', icon: DiscordIcon },
     { href: LINKEDIN_URL, label: 'Open Dev Society on LinkedIn', icon: Linkedin },
 ] as const;
-
-const linkClass = 'text-[14px] font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-side rounded-[4px]';
-
-const FooterLink = ({ href, label }: { href: string; label: string }) => {
-    const external = href.startsWith('http');
-    return (
-        <Link
-            href={href}
-            className={linkClass}
-            {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
-        >
-            {label}
-        </Link>
-    );
-};
-
-const LinkColumn = ({ title, links }: { title: string; links: readonly { href: string; label: string }[] }) => (
-    <nav aria-label={title} className="flex flex-col gap-3">
-        <p className="kicker">{title}</p>
-        <ul className="flex flex-col gap-2.5">
-            {links.map((link) => (
-                <li key={link.label}>
-                    <FooterLink {...link} />
-                </li>
-            ))}
-        </ul>
-    </nav>
-);
 
 function DiscordIcon({ className }: { className?: string }) {
     return (
@@ -73,50 +23,45 @@ export default function SiteFooter() {
     return (
         <footer className="mt-24 border-t border-line bg-side">
             <div className="mx-auto max-w-[1200px] px-5">
-                <div className="border-b border-line py-10 md:py-12">
-                    <SponsorsBand />
-                </div>
-
-                <div className="grid grid-cols-2 gap-x-8 gap-y-10 py-12 lg:grid-cols-[minmax(0,260px)_repeat(3,minmax(0,1fr))] lg:gap-x-16">
-                    <div className="col-span-2 flex max-w-sm flex-col gap-5 lg:col-span-1">
-                        <Link href="/" aria-label="OpenStock home" className="w-fit rounded-[4px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-side">
-                            <Image src="/assets/images/logo.png" alt="OpenStock" width={132} height={33} />
-                        </Link>
-                        <p className="text-[14px] leading-relaxed text-muted-foreground">
-                            A free, open-source alternative to expensive market platforms.
-                        </p>
-                        <ul className="flex items-center gap-1.5">
-                            {SOCIAL.map(({ href, label, icon: Icon }) => (
-                                <li key={label}>
-                                    <a
-                                        href={href}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        aria-label={label}
-                                        className="icon-btn shadow-[inset_0_0_0_1px_var(--line)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-side"
-                                    >
-                                        <Icon />
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
+                <div className="flex flex-col items-start gap-5 py-14">
+                    <Link href="/" aria-label="Open home" className="w-fit rounded-[6px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-side">
+                        <Logo className="gap-3" markClassName="size-11" wordClassName="text-[26px]" />
+                    </Link>
+                    <p className="text-[14px] leading-relaxed text-muted-foreground">An open-source market platform</p>
+                    <ul className="flex items-center gap-1.5">
+                        {SOCIAL.map(({ href, label, icon: Icon }) => (
+                            <li key={label}>
+                                <a
+                                    href={href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    aria-label={label}
+                                    className="icon-btn shadow-[inset_0_0_0_1px_var(--line)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-side"
+                                >
+                                    <Icon />
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                    <div className="mt-4 flex flex-col gap-2">
+                        <p className="text-[26px] font-bold tracking-[-0.03em]">Evan &amp; Quinne</p>
+                        <p className="text-[15px] text-muted-foreground">Befriending Time, Embracing Presence.</p>
                     </div>
-
-                    <LinkColumn title="Product" links={PRODUCT_LINKS} />
-                    <LinkColumn title="Community" links={COMMUNITY_LINKS} />
-                    <LinkColumn title="Company" links={COMPANY_LINKS} />
                 </div>
 
-                <div className="flex flex-col gap-4 border-t border-line py-6 pb-8 sm:flex-row sm:items-center sm:justify-between">
-                    <p className="text-[13px] text-faint">© {new Date().getFullYear()} Open Dev Society · AGPL-3.0</p>
+                <div className="border-t border-line py-6 pb-8 text-[13px] text-faint">
+                    Evan&amp;Quinne © 2026 by Evan Wu is licensed under{' '}
                     <a
-                        href={ODS_URL}
+                        href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex w-fit shrink-0 items-center gap-2 whitespace-nowrap rounded-[10px] px-3 py-1.5 text-[13px] font-semibold text-muted-foreground shadow-[inset_0_0_0_1px_var(--line)] transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-side"
+                        className="rounded-[4px] text-muted-foreground transition-colors hover:text-brand-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70"
                     >
-                        <img src="/assets/icons/odsLogo.svg" alt="" width={22} height={22} className="size-[22px]" />
-                        An Open Dev Society initiative
+                        CC BY-NC-ND 4.0
+                    </a>{' '}
+                    ·{' '}
+                    <a href="mailto:evan@evanquinne.com" className="rounded-[4px] text-muted-foreground transition-colors hover:text-brand-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/70">
+                        evan@evanquinne.com
                     </a>
                 </div>
             </div>
